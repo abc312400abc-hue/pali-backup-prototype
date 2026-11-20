@@ -1,0 +1,12 @@
+{
+  "name": "巴利语备份测试原型",
+  "short_name": "备份测试",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2f4f0",
+  "theme_color": "#263b35",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

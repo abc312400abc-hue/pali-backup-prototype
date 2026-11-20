@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#263b35">
+  <meta name="description" content="巴利语学习 App 的本地数据与外部备份技术验证原型">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <title>巴利语备份测试原型</title>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">PĀLI EXPLORER · TECHNICAL PROTOTYPE 01</div>
+    <h1>本地数据与备份测试</h1>
+    <p>验证 IndexedDB、Android 文件访问、重复写入、校验与恢复。</p>
+    <div id="connection" class="badge">正在检测环境…</div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>1. 本地学习数据</h2>
+      <p class="muted">以下是模拟数据，不是真正的巴利语课程内容。</p>
+      <div class="stats">
+        <div><strong id="recordCount">0</strong><span>条学习记录</span></div>
+        <div><strong id="settingValue">—</strong><span>每日新词目标</span></div>
+      </div>
+      <div class="actions">
+        <button id="addRecord" class="primary">添加一条模拟学习记录</button>
+        <button id="changeSetting" class="secondary">修改个人设置</button>
+      </div>
+      <div class="actions">
+        <button id="showData" class="quiet">查看当前数据</button>
+        <button id="clearLocal" class="danger">模拟清除本地网站数据</button>
+      </div>
+      <pre id="dataPreview" class="preview">尚无数据。</pre>
+    </section>
+
+    <section class="panel">
+      <h2>2. 外部备份文件</h2>
+      <p class="muted">优先测试浏览器文件访问能力。文件写入完成后会重新读取并校验。请不要把测试文件当作唯一正式备份。</p>
+      <div class="status-row"><span>文件访问 API</span><strong id="apiStatus">检测中</strong></div>
+      <div class="status-row"><span>已保存文件句柄</span><strong id="handleStatus">未选择</strong></div>
+      <div class="status-row"><span>最近一次备份</span><strong id="backupStatus">尚未备份</strong></div>
+      <div class="actions">
+        <button id="chooseBackup" class="primary">选择 / 创建备份文件</button>
+        <button id="writeBackup" class="secondary">写入并验证快照</button>
+      </div>
+      <div class="actions">
+        <button id="readBackup" class="secondary">读取并验证文件</button>
+        <button id="importBackup" class="secondary">从备份恢复</button>
+      </div>
+      <div class="actions">
+        <button id="downloadBackup" class="quiet">下载 JSON 备份（备用方案）</button>
+        <label class="file-button">选择备份文件恢复<input id="fileInput" type="file" accept=".palbackup,.json,application/json"></label>
+      </div>
+      <p class="warning">注意：清除网站数据会删除 IndexedDB 中保存的文件句柄。原备份文件通常仍在手机中，但需要通过“选择备份文件恢复”重新选择。浏览器可能要求重新授权。</p>
+    </section>
+
+    <section class="panel">
+      <h2>3. 测试日志</h2>
+      <div id="log" class="log" aria-live="polite">原型已启动。请先添加几条模拟学习记录，再选择备份文件。</div>
+      <button id="clearLog" class="quiet">清空日志</button>
+    </section>
+
+    <section class="panel note">
+      <h2>本轮要验证什么</h2>
+      <ol>
+        <li>在 Android Chrome 中通过 HTTPS 打开本原型。</li>
+        <li>添加记录，选择手机中的备份文件并写入。</li>
+        <li>再添加记录，重复写入同一个文件，检查文件是否完整。</li>
+        <li>读取文件并验证校验和。</li>
+        <li>模拟清除本地数据，再手动选择原文件恢复。</li>
+        <li>关闭浏览器、重启手机后重复测试。</li>
+      </ol>
+    </section>
+  </main>
+  <footer>离线原型 · 不连接服务器 · 不上传数据</footer>
+  <script src="app.js"></script>
+</body>
+</html>
